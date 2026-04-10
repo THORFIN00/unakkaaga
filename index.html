@@ -1,72 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unakkaaga</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unakkaaga</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<style>
-body {
-margin:0;
-height:100vh;
-background:black;
-color:white;
-display:flex;
-justify-content:center;
-align-items:center;
-font-family: 'Segoe UI', sans-serif;
-overflow:hidden;
-}
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
 
-.container{
-text-align:center;
-z-index:2;
-}
+    body {
+      position: relative;
+      color: #fff;
+    }
 
-h1{
-font-size:48px;
-margin-bottom:10px;
-}
+    .stars,
+    .stars2,
+    .stars3 {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-repeat: repeat;
+      transform: translateZ(0);
+    }
 
-p{
-font-size:18px;
-opacity:0.8;
-}
+    .stars {
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.95) 1px, transparent 1.6px);
+      background-size: 120px 120px;
+      opacity: 0.55;
+      animation: drift 180s linear infinite;
+    }
 
-button{
-margin-top:20px;
-padding:12px 25px;
-background:transparent;
-border:1px solid white;
-color:white;
-cursor:pointer;
-transition:0.3s;
-}
+    .stars2 {
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.8) 1.2px, transparent 1.8px);
+      background-size: 180px 180px;
+      opacity: 0.35;
+      animation: drift2 260s linear infinite;
+    }
 
-button:hover{
-background:white;
-color:black;
-}
+    .stars3 {
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.7) 1.5px, transparent 2px);
+      background-size: 240px 240px;
+      opacity: 0.22;
+      animation: drift3 340s linear infinite;
+    }
 
-/* stars */
+    @keyframes drift {
+      from { background-position: 0 0; }
+      to { background-position: 0 -4000px; }
+    }
 
+    @keyframes drift2 {
+      from { background-position: 0 0; }
+      to { background-position: 0 -5000px; }
+    }
+
+    @keyframes drift3 {
+      from { background-position: 0 0; }
+      to { background-position: 0 -6000px; }
+    }
+
+    .overlay {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .card {
+      max-width: 720px;
+      width: 100%;
+      padding: 28px 20px;
+      border-radius: 24px;
+      background: rgba(0, 0, 0, 0.24);
+      backdrop-filter: blur(2px);
+    }
+
+    .name {
+      font-size: clamp(44px, 8vw, 74px);
+      line-height: 1;
+      margin: 0 0 14px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      text-shadow: 0 0 18px rgba(255,255,255,0.12);
+      animation: fadeUp 1.2s ease both;
+    }
+
+    .tamil {
+      font-size: clamp(18px, 2.8vw, 28px);
+      margin: 0 0 10px;
+      opacity: 0.92;
+      animation: fadeUp 1.5s ease both;
+    }
+
+    .sub {
+      font-size: clamp(16px, 2.2vw, 20px);
+      margin: 0 0 22px;
+      opacity: 0.8;
+      animation: fadeUp 1.8s ease both;
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.78);
+      background: transparent;
+      color: white;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.25s ease;
+      animation: fadeUp 2.1s ease both;
+    }
+
+    .btn:hover {
+      background: white;
+      color: black;
+      transform: translateY(-1px);
+    }
+
+    .hint {
+      margin-top: 18px;
+      font-size: 13px;
+      opacity: 0.55;
+      animation: fadeUp 2.4s ease both;
+    }
+
+    .next {
+      display: none;
+      margin-top: 26px;
+      font-size: clamp(16px, 2.4vw, 22px);
+      line-height: 1.8;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: 0.8s ease;
+    }
+
+    .next.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .small {
+      display: block;
+      margin-top: 18px;
+      font-size: 13px;
+      opacity: 0.68;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .music-note {
+      margin-top: 8px;
+      font-size: 13px;
+      opacity: 0.55;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="stars2"></div>
+  <div class="stars3"></div>
+
+  <audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="overlay">
+    <div class="card">
+      <h1 class="name">Arunya</h1>
+      <p class="tamil">உனக்காக...</p>
+      <p class="sub">I made something for you</p>
+
+      <button class="btn" onclick="startExperience()">Click here</button>
+      <div class="hint">best viewed with sound on</div>
+
+      <div id="nextText" class="next">
+        I didn’t want my feelings to get lost in words, so I made this instead.
+        <span class="small">unakkaaga</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const music = document.getElementById("music");
+    const nextText = document.getElementById("nextText");
+
+    function startExperience() {
+      music.volume = 0.45;
+      music.play().catch(() => {});
+
+      nextText.classList.add("show");
+    }
+  </script>
+</body>
+</html>
+
+Put music.mp3 in the same folder as index.html, then commit the file again.
 .stars {
-position: absolute;
-width: 100%;
-height: 100%;
-background: transparent;
-box-shadow:
-0 0 2px white,
-100px 200px white,
-200px 300px white,
-300px 100px white,
-400px 400px white,
-500px 200px white,
-600px 300px white,
-700px 150px white,
-800px 250px white,
-900px 350px white;
-animation: moveStars 60s linear infinite;
+<div class="stars"></div>
+<div class="stars2"></div>
+<div class="stars3"></div>
 }
 
 @keyframes moveStars {
@@ -76,6 +237,35 @@ transform: translateY(0px);
 to {
 transform: translateY(-1000px);
 }
+}
+  .stars, .stars2, .stars3 {
+position:absolute;
+width:100%;
+height:100%;
+background:transparent;
+}
+
+.stars {
+background: url('https://raw.githubusercontent.com/VincentGarreau/particles.js/master/demo/media/starfield.png');
+animation: moveStars 200s linear infinite;
+opacity:0.5;
+}
+
+.stars2 {
+background: url('https://raw.githubusercontent.com/VincentGarreau/particles.js/master/demo/media/starfield.png');
+animation: moveStars 300s linear infinite;
+opacity:0.3;
+}
+
+.stars3 {
+background: url('https://raw.githubusercontent.com/VincentGarreau/particles.js/master/demo/media/starfield.png');
+animation: moveStars 400s linear infinite;
+opacity:0.2;
+}
+
+@keyframes moveStars {
+from { transform: translateY(0px); }
+to { transform: translateY(-2000px); }
 }
 
 </style>
