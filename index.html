@@ -1,120 +1,349 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unakkaaga</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unakkaaga</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<style>
-body {
-margin:0;
-padding:0;
-background:black;
-color:white;
-font-family: Arial, sans-serif;
-overflow:hidden;
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-}
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #fff;
+    }
 
-.container{
-text-align:center;
-z-index:2;
-}
+    body {
+      position: relative;
+    }
 
-h1{
-font-size:48px;
-margin-bottom:10px;
-}
+    /* background */
+    .stars,
+    .stars2,
+    .stars3 {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-repeat: repeat;
+      transform: translateZ(0);
+    }
 
-p{
-font-size:18px;
-opacity:0.8;
-}
+    .stars {
+      background-image: radial-gradient(circle, rgba(255,255,255,0.95) 1px, transparent 1.6px);
+      background-size: 120px 120px;
+      opacity: 0.55;
+      animation: drift 180s linear infinite;
+    }
 
-button{
-margin-top:20px;
-padding:12px 25px;
-background:transparent;
-border:1px solid white;
-color:white;
-cursor:pointer;
-transition:0.3s;
-}
+    .stars2 {
+      background-image: radial-gradient(circle, rgba(255,255,255,0.8) 1.2px, transparent 1.8px);
+      background-size: 180px 180px;
+      opacity: 0.35;
+      animation: drift2 260s linear infinite;
+    }
 
-button:hover{
-background:white;
-color:black;
-}
+    .stars3 {
+      background-image: radial-gradient(circle, rgba(255,255,255,0.7) 1.5px, transparent 2px);
+      background-size: 240px 240px;
+      opacity: 0.22;
+      animation: drift3 340s linear infinite;
+    }
 
-/* stars */
+    @keyframes drift {
+      from { background-position: 0 0; }
+      to { background-position: 0 -4000px; }
+    }
 
-.stars {
-position:absolute;
-width:1px;
-height:1px;
-background:transparent;
-box-shadow:
-100px 200px #fff,
-200px 300px #fff,
-300px 100px #fff,
-400px 400px #fff,
-500px 200px #fff,
-600px 300px #fff,
-700px 150px #fff,
-800px 250px #fff,
-900px 350px #fff,
-1000px 100px #fff,
-1100px 200px #fff,
-1200px 300px #fff,
-1300px 150px #fff,
-1400px 250px #fff,
-1500px 350px #fff;
-animation: moveStars 60s linear infinite;
-}
+    @keyframes drift2 {
+      from { background-position: 0 0; }
+      to { background-position: 0 -5000px; }
+    }
 
-@keyframes moveStars {
-from {
-transform: translateY(0px);
-}
-to {
-transform: translateY(-1000px);
-}
-}
+    @keyframes drift3 {
+      from { background-position: 0 0; }
+      to { background-position: 0 -6000px; }
+    }
 
-</style>
+    /* overlay */
+    .overlay {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
 
+    .card {
+      max-width: 760px;
+      width: 100%;
+      padding: 28px 20px;
+      border-radius: 24px;
+      background: rgba(0, 0, 0, 0.26);
+      backdrop-filter: blur(2px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .section {
+      display: none;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .section.active {
+      display: block;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .title {
+      font-size: clamp(44px, 8vw, 76px);
+      line-height: 1;
+      margin: 0 0 14px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      text-shadow: 0 0 18px rgba(255,255,255,0.12);
+    }
+
+    .tamil {
+      font-size: clamp(18px, 2.8vw, 28px);
+      margin: 0 0 10px;
+      opacity: 0.92;
+    }
+
+    .sub {
+      font-size: clamp(16px, 2.2vw, 20px);
+      margin: 0 0 22px;
+      opacity: 0.8;
+      line-height: 1.8;
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.78);
+      background: transparent;
+      color: white;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.25s ease;
+      margin: 8px 6px 0;
+    }
+
+    .btn:hover {
+      background: white;
+      color: black;
+      transform: translateY(-1px);
+    }
+
+    .hint {
+      margin-top: 18px;
+      font-size: 13px;
+      opacity: 0.55;
+    }
+
+    .small {
+      display: block;
+      margin-top: 18px;
+      font-size: 13px;
+      opacity: 0.68;
+    }
+
+    .cry {
+      font-size: 42px;
+      margin: 10px 0 14px;
+    }
+
+    .soft {
+      opacity: 0.82;
+      line-height: 1.9;
+      font-size: 18px;
+    }
+
+    .choice-wrap {
+      margin-top: 18px;
+    }
+
+    .final {
+      font-size: 18px;
+      line-height: 1.9;
+      opacity: 0.86;
+    }
+
+    .fade-slow {
+      animation: fadeSlow 2.8s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeSlow {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
 </head>
-
 <body>
-<audio id="music" loop>
-  <source src="music.mp3" type="audio/mp3">
-</audio>
-<div class="stars"></div>
+  <div class="stars"></div>
+  <div class="stars2"></div>
+  <div class="stars3"></div>
 
-<div class="container">
-<h1>Arunya</h1>
-<p>உனக்காக...</p>
-<p>I made something for you</p>
+  <audio id="music" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
 
-<button onclick="next()">Click here</button>
-</div>
+  <div class="overlay">
+    <div class="card">
 
-<script>
-function next(){
-document.getElementById("music").play();
+      <!-- Section 1 -->
+      <div class="section active" id="section1">
+        <h1 class="title">Arunya</h1>
+        <p class="tamil">உனக்காக...</p>
+        <p class="sub">I made something for you</p>
+        <button class="btn" onclick="nextSection(2)">Click here</button>
+        <div class="hint">best viewed with sound on</div>
+      </div>
 
-document.body.style.transition = "1.5s";
-document.body.style.opacity = "0";
+      <!-- Section 2 -->
+      <div class="section" id="section2">
+        <h1 class="title">Arunya</h1>
+        <p class="soft">
+          <!-- write your apology here -->
+          I wanted to say this clearly, without hiding behind half-sent messages.
+          <br><br>
+          <!-- keep adding your own lines here -->
+          This page is just for the truth I should have said properly.
+        </p>
+        <button class="btn" onclick="nextSection(3)">Continue</button>
+      </div>
 
-setTimeout(function(){
-window.location.href = "page2.html";
-},1500);
+      <!-- Section 3 -->
+      <div class="section" id="section3">
+        <h1 class="title">One more thing</h1>
+        <p class="soft">
+          <!-- write your explanation here -->
+          I’m not here to beg. I just wanted to take responsibility and say what I should have said calmly.
+        </p>
+        <button class="btn" onclick="nextSection(4)">Continue</button>
+      </div>
 
-}
-</script>
+      <!-- Section 4 -->
+      <div class="section" id="section4">
+        <h1 class="title">What now?</h1>
+        <p class="soft">
+          <!-- choose your own wording later -->
+          If you want to forgive me, I will be grateful.
+          <br><br>
+          If not, I still respect your decision.
+        </p>
 
+        <div class="choice-wrap">
+          <button class="btn" onclick="nextSection(5)">I forgive you</button>
+          <button class="btn" onclick="nextSection(6)">I’m done with this</button>
+        </div>
+      </div>
+
+      <!-- Section 5 -->
+      <div class="section" id="section5">
+        <h1 class="title">Thank you</h1>
+        <p class="soft">
+          <!-- write your grateful message here -->
+          Thank you for reading this.
+          <br><br>
+          For the time we had, for the moments we shared, and for the way you made the sky feel a little softer.
+        </p>
+        <button class="btn" onclick="resetToStart()">Back</button>
+      </div>
+
+      <!-- Section 6 -->
+      <div class="section" id="section6">
+        <h1 class="title">Wait...</h1>
+        <p class="soft">
+          <!-- your "move on" page text -->
+          If this is truly the end, I still wanted to say thank you for everything.
+        </p>
+        <button class="btn" onclick="nextSection(7)">Continue</button>
+      </div>
+
+      <!-- Section 7 -->
+      <div class="section fade-slow" id="section7">
+        <h1 class="title">Are you sure...?</h1>
+        <p class="cry">😭</p>
+        <p class="soft">
+          This will be the last thing I say...
+        </p>
+        <button class="btn" onclick="nextSection(8)">Continue</button>
+      </div>
+
+      <!-- Section 8 -->
+      <div class="section" id="section8">
+        <h1 class="title">Goodbye</h1>
+        <p class="final">
+          I’ll leave it here.<br>
+          Thank you for the time we spent.
+          <br><br>
+          I’ll always remember this as something meaningful.
+        </p>
+        <button class="btn" onclick="resetToStart()">Back to start</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const music = document.getElementById("music");
+
+    function startMusic() {
+      if (music.paused) {
+        music.volume = 0.45;
+        music.play().catch(() => {});
+      }
+    }
+
+    function hideAllSections() {
+      document.querySelectorAll(".section").forEach(sec => {
+        sec.classList.remove("active");
+      });
+    }
+
+    function nextSection(num) {
+      startMusic();
+      hideAllSections();
+      const next = document.getElementById("section" + num);
+      next.classList.add("active");
+    }
+
+    function resetToStart() {
+      hideAllSections();
+      document.getElementById("section1").classList.add("active");
+    }
+  </script>
 </body>
 </html>
