@@ -105,6 +105,14 @@ transform: translateY(-1000px);
 <script>
 function next(){
 document.getElementById("music").play();
+
+document.body.style.transition = "1.5s";
+document.body.style.opacity = "0";
+
+setTimeout(function(){
+window.location.href = "page2.html";
+},1500);
+
 }
 </script>
 
