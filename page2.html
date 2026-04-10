@@ -21,10 +21,43 @@ opacity:0;
 animation: fadeIn 2s forwards;
 }
 
+/* stars */
+
+.stars {
+position:absolute;
+width:1px;
+height:1px;
+background:transparent;
+box-shadow:
+100px 200px #fff,
+200px 300px #fff,
+300px 100px #fff,
+400px 400px #fff,
+500px 200px #fff,
+600px 300px #fff,
+700px 150px #fff,
+800px 250px #fff,
+900px 350px #fff,
+1000px 100px #fff,
+1100px 200px #fff,
+1200px 300px #fff;
+animation: moveStars 60s linear infinite;
+}
+
+@keyframes moveStars {
+from {
+transform: translateY(0px);
+}
+to {
+transform: translateY(-1000px);
+}
+}
+
 .container{
 max-width:700px;
 text-align:center;
 padding:20px;
+z-index:2;
 }
 
 h1{
@@ -64,6 +97,12 @@ opacity:1;
 </head>
 
 <body>
+
+<div class="stars"></div>
+
+<audio id="music" autoplay loop>
+<source src="music.mp3" type="audio/mp3">
+</audio>
 
 <div class="container">
 
