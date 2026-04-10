@@ -7,52 +7,96 @@
 
 <style>
 body {
-    margin: 0;
-    height: 100vh;
-    background: black;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
+margin:0;
+height:100vh;
+background:black;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family: 'Segoe UI', sans-serif;
+overflow:hidden;
 }
 
-.container {
-    text-align: center;
+.container{
+text-align:center;
+z-index:2;
 }
 
-h1 {
-    font-size: 40px;
-    margin-bottom: 20px;
+h1{
+font-size:48px;
+margin-bottom:10px;
 }
 
-button {
-    padding: 12px 25px;
-    background: transparent;
-    border: 1px solid white;
-    color: white;
-    cursor: pointer;
+p{
+font-size:18px;
+opacity:0.8;
 }
 
-button:hover {
-    background: white;
-    color: black;
+button{
+margin-top:20px;
+padding:12px 25px;
+background:transparent;
+border:1px solid white;
+color:white;
+cursor:pointer;
+transition:0.3s;
 }
+
+button:hover{
+background:white;
+color:black;
+}
+
+/* stars */
+
+.stars {
+position: absolute;
+width: 100%;
+height: 100%;
+background: transparent;
+box-shadow:
+0 0 2px white,
+100px 200px white,
+200px 300px white,
+300px 100px white,
+400px 400px white,
+500px 200px white,
+600px 300px white,
+700px 150px white,
+800px 250px white,
+900px 350px white;
+animation: moveStars 60s linear infinite;
+}
+
+@keyframes moveStars {
+from {
+transform: translateY(0px);
+}
+to {
+transform: translateY(-1000px);
+}
+}
+
 </style>
 
 </head>
 
 <body>
 
+<div class="stars"></div>
+
 <div class="container">
-    <h1>Arunya</h1>
-    <button onclick="next()">Click here</button>
+<h1>Arunya</h1>
+<p>உனக்காக...</p>
+<p>I made something for you</p>
+
+<button onclick="next()">Click here</button>
 </div>
 
 <script>
 function next(){
-    alert("Next page coming...");
+alert("Next page coming...");
 }
 </script>
 
