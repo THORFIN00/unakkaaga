@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unakkaaga</title>
+
+<style>
+
+body{
+margin:0;
+background:black;
+color:white;
+font-family: Arial, sans-serif;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+overflow:hidden;
+opacity:0;
+animation: fadeIn 2s forwards;
+}
+
+.container{
+max-width:700px;
+text-align:center;
+padding:20px;
+}
+
+h1{
+font-size:40px;
+margin-bottom:20px;
+}
+
+p{
+line-height:1.8;
+font-size:18px;
+opacity:0.8;
+}
+
+button{
+margin-top:30px;
+padding:12px 25px;
+background:transparent;
+border:1px solid white;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:white;
+color:black;
+}
+
+@keyframes fadeIn{
+to{
+opacity:1;
+}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Arunya</h1>
+
+<p>
+Write your text here...
+</p>
+
+<button onclick="next()">Continue</button>
+
+</div>
+
+<script>
+
+function next(){
+document.body.style.opacity="0";
+
+setTimeout(function(){
+window.location.href="page3.html";
+},1500);
+
+}
+
+</script>
+
+</body>
+</html>
